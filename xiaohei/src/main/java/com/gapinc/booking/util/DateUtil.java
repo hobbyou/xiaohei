@@ -11,7 +11,7 @@ public class DateUtil {
 	 * 
 	 * @param date
 	 * @param pattern
-	 * @return string
+	 * @return
 	 */
 	public static String format(Date date, String... pattern) {
 		DateFormat df;
