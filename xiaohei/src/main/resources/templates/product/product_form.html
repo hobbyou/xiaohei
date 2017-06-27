@@ -3,8 +3,6 @@
 <head>
 <title>小黑管理后台</title>
 <meta th:include="frame/taglib::css" th:remove="tag"></meta>
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet" />
-<link href="/plugins/bootstrap-fileinput-master/css/fileinput.min.css" rel="stylesheet" type="text/css" />
 
 
 </head>
@@ -47,7 +45,8 @@
 							<div class="form-group">
 								<label for="imageFile" class="col-sm-2 control-label">产品封面图片</label>
 								<div class="col-sm-9">
-									<input type="file" class="file" id="imageFile" name="img" />
+									<input type="file" id="imageFile" class="file-loading" name="files" />
+									<input type="hidden" id="imgval" name="img" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -73,11 +72,28 @@
 	</div>
 	<!-- ./wrapper -->
 	<div th:include="frame/taglib::javascript" th:remove="tag"></div>
-	<script src="/plugins/summernote/dist/summernote.js" />
-	<script src="/plugins//summernote/dist/lang/summernote-zh-CN.js" />
-	<script src="/plugins/bootstrap-fileinput-master/js/fileinput.min.js" type="text/JavaScript" />
 	<script>
+	/*<![CDATA[*/
 		$(document).ready(function() {
+			
+			$('#imageFile').fileinput({
+		        showRemove: true,
+		        showUpload: false,
+		        showPreview: false,
+		        autoReplace: true,
+		        maxFileCount: 1,
+		        language:'zh',
+			    uploadUrl: '/upload/image',
+			    allowedFileExtensions: ["jpg", "jpeg", "gif", "png"]
+			}).on('filebatchselected', function (event, data, id, index) {
+				$(this).fileinput("upload");
+			}).on('fileuploaded',function(event, data){
+				if(data.response!=null && data.response.success){
+					$('#imgval').val(data.response.data[0]);
+				}
+			});
+			
+			
 			$('#summernote').summernote({
 				height:300,
 				placeholder: '输入产品的内容,可以插入图片、连接等...',
@@ -88,7 +104,8 @@
 		            	$.each(files,function(index,file){
 		            		data.append('files',file);
 		            	});
-		                $.ajax({ 
+
+		            	$.ajax({ 
 		                    url: '/upload/image',  
 		                    type: 'POST',  
 		                    data: data,  
@@ -113,11 +130,14 @@
 
 			//提交
 			$('#submit-btn').on('click',function(){
+				alert(111);
 				var data=$('#myform').serializeObj();
+				var content=$('#summernote').summernote('code');
+				data.content=content;
 			     $.ajax({ 
                     url: '/admin/product/save',  
                     type: 'POST',  
-                    data: {name:'hobby'},  
+                    data: data,  
                     dataType: 'JSON',    
                         /*  contentType: false, */
                     success:function(res){
@@ -133,6 +153,7 @@
 			
 			
 		});
+		/*]]>*/
 	</script>
 </body>
 </html>

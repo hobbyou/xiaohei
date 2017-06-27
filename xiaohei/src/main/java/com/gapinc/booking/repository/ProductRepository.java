@@ -8,4 +8,5 @@ import com.gapinc.booking.domain.Booking;
 @Repository
 public interface ProductRepository extends JpaRepository<Booking, String> {
 
+
 }

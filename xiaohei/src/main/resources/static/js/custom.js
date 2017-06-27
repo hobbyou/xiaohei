@@ -11,18 +11,8 @@
     
     
     $.ajaxSetup({
-	dataType:'json',
-	cache: false,
-	processData:false,
-	serializeData:true,
-	beforeSend:function(xhr,self){
-	    if(typeof(self.data) === FormData){
-		self.contentType = false
-	    }else if(typeof(self.data) === 'object' && self.serializeData){
-		self.contentType = 'application/x-www-form-urlencoded';
-		self.data=$.param(self.data);
-	    }
-	}
+		dataType : 'json',
+		cache : false
     });
     $(document).ajaxStart(function(obj,self){
 	

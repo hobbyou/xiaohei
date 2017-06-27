@@ -1,5 +1,7 @@
 package com.gapinc.booking.controller;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gapinc.booking.domain.XhProduct;
 import com.gapinc.booking.service.ProductService;
+import com.gapinc.booking.type.FeedBack;
+import com.gapinc.booking.util.StringUtil;
 
 @Controller
-@RequestMapping("/admin/product")
+@RequestMapping("/product")
 public class ProductCtroller extends BaseController {
 	private Logger logger = LoggerFactory.getLogger(BaseController.class);
 
@@ -27,21 +31,30 @@ public class ProductCtroller extends BaseController {
 		return "product/product_form";
 	}
 
-	@ResponseBody
-	@RequestMapping("save")
-	public void save(HttpServletRequest request, XhProduct proecut) {
-		Map<String, String[]> map = request.getParameterMap();
-		for (String key : map.keySet()) {
-			System.out.println(key + "--->" + map.get(key)[0]);
-		}
-		// product.setId(StringUtil.uuid());
-		// product.setCreateTime(new Date());
-		// product.setIsDelete(false);
-		// productService.save(product);
+	@RequestMapping("productList")
+	public String productList() {
+		return "product/product_list";
 	}
 
-	public static void main(String[] args) {
+	@ResponseBody
+	@RequestMapping("save")
+	public void save(HttpServletRequest request, XhProduct product) {
 
+		product.setId(StringUtil.uuid());
+		product.setCreateTime(new Date());
+		product.setIsDelete(false);
+		product.setIsSend(false);
+		// product.setSort(0);
+		productService.save(product);
+	}
+
+	@ResponseBody
+	@RequestMapping("search")
+	public FeedBack search(HttpServletRequest request, XhProduct product) {
+		List<XhProduct> list=productService.findProductList();
+		FeedBack fb=new FeedBack();
+		fb.setData(list);
+		return fb;
 	}
 
 }

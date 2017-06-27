@@ -20,7 +20,13 @@
         apply the skin class to the body tag so the changes take effect.
   -->
 <link rel="stylesheet" href="/dist/css/skins/skin-blue.min.css" />
-<link rel="stylesheet" href="/css/base.css?1" />
+<link href="/plugins/summernote/dist/summernote.css" rel="stylesheet" type="text/css" />
+<link href="/plugins/bootstrap-fileinput-master/css/fileinput.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+
+<link rel="stylesheet" href="/css/base.css" />
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -28,6 +34,8 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
+
 
 <div  th:fragment="javascript">
 <!-- REQUIRED JS SCRIPTS -->
@@ -39,5 +47,14 @@
 <!-- AdminLTE App -->
 <script src="/dist/js/app.min.js"></script>
 <script src="/plugins/custom-model/custom-model.js"></script>
+
+
+<script src="/plugins/summernote/dist/summernote.js" />
+<script src="/plugins//summernote/dist/lang/summernote-zh-CN.js" />
+<script src="/plugins/bootstrap-fileinput-master/js/fileinput.min.js" />
+<script src="/plugins/bootstrap-fileinput-master/js/locales/zh.js" />
+<script src="/plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"/>
+<script src="/plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"/>
+
 <script src="/js/custom.js"></script>
 </div>
