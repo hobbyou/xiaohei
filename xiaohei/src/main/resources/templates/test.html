@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Hello World!</title>
+</head>
+<body>
+	<h1>Hello.v.2</h1>
+	<p th:text="${hello}"></p>
+	<p th:text="'hello!'+${name}">hahha</p>
+	<p th:text="${name}==hobby?hobby:unknow"></p>
+	<a th:href="@{'http://blog.csdn.net/u012706811?a='+${name}}">绝对路径</a>
+	<a th:href="@{/login}" th:unless="${session.user != null}">Login</a>
+	<img alt="QQ2017.jpg" src="/image/QQ2017.jpg" />
+	<div th:switch="${user}">
+  <p th:case="'admin'">User is an administrator</p>
+  <p th:case="#{roles}">User is a manager</p>
+  <p th:case="*">User is some other thing</p>
+  <p th:text="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></p>
+  <p th:text="${#dates.listFormat(dates, 'yyyy-MM-dd HH:mm')}"></p>
+  <p th:if="${#strings.isEmpty(name)}">HAHAH </p>
+</div>
+
+
+</body>
+</html>
